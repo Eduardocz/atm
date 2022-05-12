@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const validatorHandler = require('./../middlewares/validator.handler')
-const { operationSchemaAccount} = require('./../schemas/account.schema')
+const { operationSchemaAccount } = require('./../schemas/account.schema')
 const router = express.Router();
 const AccountService = require('../services/account.service');
 const _accountService = new AccountService();
@@ -20,8 +20,8 @@ router.patch('/deposit/:numberAccount',
         try {
             const { numberAccount } = req.params;
             const { amount } = req.body;
-            //console.log(req.user.profile)
-            const withdraw = await _accountService.deposit(numberAccount, amount);
+            const user = req.user.sub;
+            const withdraw = await _accountService.deposit(numberAccount, amount, user);
             res.json(withdraw)
         } catch (error) {
             next(error)
@@ -34,7 +34,8 @@ router.patch('/withdraw/:numberAccount',
         try {
             const { numberAccount } = req.params;
             const { amount } = req.body;
-            const withdraw = await _accountService.withdraw(numberAccount, amount);
+            const user = req.user.sub;
+            const withdraw = await _accountService.withdraw(numberAccount, amount, user);
             res.json(withdraw)
         } catch (error) {
             next(error)
@@ -47,7 +48,8 @@ router.patch('/pay-credit/:numberAccount',
         try {
             const { numberAccount } = req.params;
             const { amount } = req.body;
-            const withdraw = await _accountService.payCredit(numberAccount, amount);
+            const user = req.user.sub;
+            const withdraw = await _accountService.payCredit(numberAccount, amount, user);
             res.json(withdraw)
         } catch (error) {
             next(error)
