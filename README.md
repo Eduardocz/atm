@@ -10,7 +10,8 @@ requerimientos:
 
 ## ejemplo:
 registrar nuevo usuario:
-    - POST /api/v1/users
+- POST /api/v1/users
+
     {
         "email":"eduardoczv2@gmail.com",
         "name":"Juan Eduardo",
@@ -19,8 +20,8 @@ registrar nuevo usuario:
         "phone":5512278348,
         "password":"123456789"
     }
+- response:
 
-response:
     {
         "createdAt": "2022-05-11T23:05:29.706Z",
         "id": 1,
@@ -49,7 +50,9 @@ response:
             }
         ]
     }
-""Guardar el "number" de las cuentas, para hacer los movimientos de deposito, retiro y pago de cuenta"", 
+
+
+## Guardar el "number" de las cuentas, para hacer los movimientos de deposito, retiro y pago de cuenta"", 
 
 ## LOGIN :
 - /auth/login
