@@ -1,6 +1,18 @@
-version: '3.3'
+version: '3.8'
 
 services:
+
+  service-node:
+    build: ./apiAtm
+    volumes:
+      - ./apiAtm:/usr/src/apinode
+    ports: 
+      - 3000:3000
+    env_file: ./apiAtm/.env
+    depends_on:
+      - db_postgres
+      - pgadmin
+
   db_postgres:
     image: postgres:13
     container_name: dbpostgres
@@ -23,11 +35,5 @@ services:
     depends_on:
       - db_postgres
 
-  service-node:
-    build: ./apiAtm
-    volumes:
-      - ./apiAtm:/usr/src/servicenode
-    ports: 
-      - 3000:3000
-    depends_on:
-      - db_postgres
+  
+      
