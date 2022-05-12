@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+  db_postgres:
+    image: postgres:13
+    container_name: dbpostgres
+    environment:
+      - POSTGRES_DB=atm
+      - POSTGRES_USER=useratm
+      - POSTGRES_PASSWORD=4tmm0n3y
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres_data:/var/lib/postgres/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=root@email.com
+      - PGADMIN_DEFAULT_PASSWORD=r00t
+    ports:
+      - 5050:80
+    depends_on:
+      - db_postgres
+
+  service-node:
+    build: ./apiAtm
+    volumes:
+      - ./apiAtm:/usr/src/servicenode
+    ports: 
+      - 3000:3000
+    depends_on:
+      - db_postgres
